@@ -1,0 +1,5 @@
+appName: frontend-app
+appImage: bernaa77/craftech-frontend-app
+appImageTag: latest
+appReplicas: 1
+containerPort: 3000
