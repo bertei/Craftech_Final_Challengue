@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: postgres-app
+spec:
+  selector:
+    matchLabels:
+      app: postgres-app
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:14-bullseye
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: database
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: postgres_db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app: postgres-app
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+##---
+##apiVersion: apps/v1
+##kind: Deployment
+##metadata:
+##  name: frontend-app-deployment
+##  labels:
+##    app: frontend-app
+##spec:
+##  selector:
+##    matchLabels:
+##      app: frontend-app
+##  template:
+##    metadata:
+##      labels:
+##        app: frontend-app
+##    spec:
+##      containers:
+##        - name: frontend-container
+##          image: docker.io/bernaa77/craftech-frontend-app:latest
+##          ports:
+##            - containerPort: 3000
+##---
+##apiVersion: v1
+##kind: Service
+##metadata:
+##  name: frontend-app-service
+##spec:
+##  selector:
+##    app: frontend-app
+##  ports:
+##    - protocol: TCP
+##      port: 3000
+##      targetPort: 3000
