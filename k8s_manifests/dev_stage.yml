@@ -53,36 +53,117 @@ spec:
       port: 5432
       targetPort: 5432
 
-##---
-##apiVersion: apps/v1
-##kind: Deployment
-##metadata:
-##  name: frontend-app-deployment
-##  labels:
-##    app: frontend-app
-##spec:
-##  selector:
-##    matchLabels:
-##      app: frontend-app
-##  template:
-##    metadata:
-##      labels:
-##        app: frontend-app
-##    spec:
-##      containers:
-##        - name: frontend-container
-##          image: docker.io/bernaa77/craftech-frontend-app:latest
-##          ports:
-##            - containerPort: 3000
-##---
-##apiVersion: v1
-##kind: Service
-##metadata:
-##  name: frontend-app-service
-##spec:
-##  selector:
-##    app: frontend-app
-##  ports:
-##    - protocol: TCP
-##      port: 3000
-##      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend-app
+spec:
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+        - name: backend-app
+          image: bernaa77/craftech-backend-app:latest
+          command: ['/bin/sh', 'entrypoint.sh'] # runs migrations and starts the server
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SECRET_KEY
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: ALLOWED_HOSTS
+            - name: SQL_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_ENGINE
+            - name: SQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_DATABASE
+            - name: SQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_USER
+            - name: SQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_PASSWORD
+            - name: SQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key:  SQL_HOST
+            - name: SQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_PORT
+            - name: RUNSERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key:  RUNSERVER_PORT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend-app
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app-deployment
+  labels:
+    app: frontend-app
+spec:
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+        - name: frontend-container
+          image: docker.io/bernaa77/craftech-frontend-app:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app-service
+spec:
+  selector:
+    app: frontend-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
