@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backend-migration
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend-migration
+          image: bernaa77/craftech-backend-app:latest
+          command: ["python", "manage.py", "migrate"]
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SECRET_KEY
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: ALLOWED_HOSTS
+            - name: SQL_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_ENGINE
+            - name: SQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_DATABASE
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-username
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: SQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key:  SQL_HOST
+            - name: SQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-configmap
+                  key: SQL_PORT
+      restartPolicy: Never
+  backoffLimit: 2

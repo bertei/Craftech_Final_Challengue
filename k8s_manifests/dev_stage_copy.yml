@@ -72,8 +72,7 @@ spec:
       containers:
         - name: backend-app
           image: bernaa77/craftech-backend-app:latest
-          command: ["/bin/sh"]
-          args: ["-c", "python manage.py runserver 0.0.0.0:$RUNSERVER_PORT"]
+          command: ['/bin/sh', 'entrypoint.sh'] # runs migrations and starts the server
           ports:
             - containerPort: 8000
           env:
@@ -162,7 +161,7 @@ kind: Service
 metadata:
   name: frontend-app-service
 spec:
-  #type: NodePort
+  type: NodePort
   selector:
     app: frontend-app
   ports:
