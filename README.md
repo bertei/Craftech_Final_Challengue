@@ -68,3 +68,9 @@ Realizar un diseño gráfico de las herramientas y servicios que utilizarían si
 - [GitLab - CICD](https://docs.gitlab.com/ee/ci/)
 - [GitLab - Runner](https://docs.gitlab.com/runner/install/kubernetes.html)
 - [Pytest](https://docs.pytest.org/en/7.1.x/)
+
+## **Cómo correr la solución?:**
+- 1) Instalar y crear un cluster a través de minikube.
+- 2) kubectl apply -f backend-config.yml, postgres-config.yml, postgres-secret.yml (un comando por cada manifiesto)
+- 3) kubectl apply -f dev_stage.yml
+- 4) kubectl apply -f backend-job.yml
