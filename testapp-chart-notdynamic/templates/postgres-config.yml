@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-configmap
+  labels:
+    app: postgres-app
+data:
+  database: postgres
+  postgres_db: testapp-db
+  postgres_service_url: postgres-service

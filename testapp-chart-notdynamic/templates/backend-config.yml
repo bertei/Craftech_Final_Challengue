@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configmap
+  labels:
+    app: backend-app
+data:
+  SECRET_KEY: kKZTp39JgXXe4kcp
+  ALLOWED_HOSTS: "['*']"
+  SQL_ENGINE: django.db.backends.postgresql
+  SQL_DATABASE: testapp-db
+  SQL_USER: admin
+  SQL_PASSWORD: "12345678"
+  SQL_HOST: postgres-service
+  SQL_PORT: "5432"
+  RUNSERVER_PORT: "8000"

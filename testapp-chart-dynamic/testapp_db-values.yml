@@ -1,0 +1,21 @@
+manifestName: testappdb-deployment
+replicasNumber: 1
+appName: postgres-app
+appImage: postgres
+appImageTag: 14-bullseye
+containerName: postgres-container
+containerPort: 5432
+containerEnvVars:
+  - name: POSTGRES_USER
+    value: "admin"
+  - name: POSTGRES_PASSWORD
+    value: "12345678"
+  - name: DATABASE
+    value: "postgres"
+  - name: POSTGRES_DB
+    value: "testapp-db"
+
+serviceName: testapp-db-service
+serviceType: ClusterIP
+servicePort: 5432
+

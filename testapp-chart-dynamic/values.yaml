@@ -1,0 +1,14 @@
+manifestName: example1
+appName: app1
+appImage: image_repo
+appImageTag: image_tag
+replicasNumber: 1
+containerPort: 0000
+containerEnvVars:
+- name: ENV_VAR_ONE
+  value: "valueone"
+- name: ENV_VAR_TWO
+  value: "valuetwo"
+
+servicePort: 0000
+serviceType: ClusterIP-NodePort-LoadBalancer
