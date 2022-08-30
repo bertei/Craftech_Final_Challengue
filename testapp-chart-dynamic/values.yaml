@@ -5,10 +5,10 @@ appImageTag: image_tag
 replicasNumber: 1
 containerPort: 0000
 containerEnvVars:
-- name: ENV_VAR_ONE
-  value: "valueone"
-- name: ENV_VAR_TWO
-  value: "valuetwo"
+  - name: ENV_VAR_ONE
+    value: "valueone"
+  - name: ENV_VAR_TWO
+    value: "valuetwo"
 
 servicePort: 0000
 serviceType: ClusterIP-NodePort-LoadBalancer

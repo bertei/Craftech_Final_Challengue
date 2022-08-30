@@ -1,10 +1,7 @@
-manifestName: testappbackend-deployment
-replicasNumber: 1
-appName: testapp-backend
-appImage: bernaa77/craftech-backend2-app
+manifestName: migrationjob-manifest
+containerName: migrationjob-container
+appImage: bernaa77/craftech-backend-app
 appImageTag: latest
-containerName: backend-container
-containerPort: 8000
 containerEnvVars:
   - name: SECRET_KEY
     value: kKZTp39JgXXe4kcp
@@ -24,8 +21,3 @@ containerEnvVars:
     value: "5432"
   - name: RUNSERVER_PORT
     value: "8000"
-
-serviceName: testapp-backend-service
-serviceType: ClusterIP
-servicePort: 8000
-  

@@ -1,0 +1,11 @@
+manfifestName: testappfrontend-deployment
+replicasNumber: 1
+appName: testapp-frontend
+appImage: bernaa77/craftech-frontend-app
+appImageTag: latest
+containerName: frontend-container
+containerPort: 3000
+
+serviceName: testapp-frontend-service
+serviceType: ClusterIP
+servicePort: 3000

@@ -18,7 +18,7 @@ services:
     image: testapp-backend
     env_file:
       - ./test-app-backend/django-vars.env
-    entrypoint: ./entrypoint.sh
+    #entrypoint: ./entrypoint.sh
     container_name: testapp-backend
     ports:
       - "8000:8000"

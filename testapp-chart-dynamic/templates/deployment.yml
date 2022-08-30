@@ -15,7 +15,7 @@ spec:
       containers:
       - name: {{ .Values.containerName }}
         image: "{{ .Values.appImage }}:{{ .Values.appImageTag }}"
-        ports: 
+        ports:
         - containerPort: {{ .Values.containerPort }}
         env:
         {{- range .Values.containerEnvVars }}
