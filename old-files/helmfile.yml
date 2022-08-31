@@ -1,0 +1,15 @@
+releases:
+  - name: testapp-db-microservice
+    chart: ./templates
+    values:
+      - ./values/testapp_db-values.yml
+
+  - name: testapp-backend-microservice
+    chart: ./templates
+    values:
+      - ./values/testapp_backend-values.yml
+  
+  - name: testapp-frontend-microservice
+    chart: ./templates
+    values:
+      - ./values/testapp_frontend-values.yml

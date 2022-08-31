@@ -1,4 +1,4 @@
-manfifestName: testappfrontend-deployment
+manifestName: testappfrontend-deployment
 replicasNumber: 1
 appName: testapp-frontend
 appImage: bernaa77/craftech-frontend-app

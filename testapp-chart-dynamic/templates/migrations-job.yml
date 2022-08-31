@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: backend-migration-manifest
   annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook": post-install,post-upgrade
 spec:
   template:
     spec:
